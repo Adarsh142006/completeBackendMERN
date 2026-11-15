@@ -40,34 +40,32 @@ app.get('/notes',async(req,res)=>{
 
 // //delete the node from the server
 
-// app.delete('/notes/:index',(req,res)=>{
-//        const index = req.params.index 
+app.delete('/notes/:id',async(req,res)=>{
+       const id = req.params.id 
 
-//        delete notes[index]
+       await noteModel.findOneAndDelete({
+              _id:id
+       })
 
-//        res.status(200).json({
-//               message:"note deleted successfully"
-//        })
-// })
+       res.status(200).json({
+              message:"note deleted successfully"
+       })
+})
 
 
 // //update data by patch
 
-// app.patch("/notes/:index",(req,res)=>{
-//        const index = req.params.index
+app.patch("/notes/:id",async(req,res)=>{
+       const id = req.params.id
 
-//        const description = req.body.description
+       const description = req.body.description
 
-//        const title = req.body.title
+       await noteModel.findByIdAndUpdate({_id:id},{description:description}) // it require two objects in first one ki app kis ke basis per maang rahe ho like id , title or dusre me ye batate ho kya update karna hai
 
-//        notes[index].description  =  description
-
-//        notes[index].title = title
-
-//        res.status(200).json({
-//               message:"note updated successfully"
-//        })
-// })
+       res.status(200).json({
+              message:"note updated successfully"
+       })
+})
 
 
 
